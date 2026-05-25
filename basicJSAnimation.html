@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        #cont {
+          display: flex;
+        }
+        #big, #bigg {
+          position: relative;
+          height: 250px;
+          width: 250px; 
+        }
+        #big {
+          background-color: black;
+        }
+        #bigg {
+          margin-left: 100px;
+          background-color: skyblue;
+        }
+        #small, #ssmall {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          height: 25px;
+          width: 25px;
+        }
+        #small {
+          background-color: skyblue;
+        }
+        #ssmall {
+          background-color: black;
+        }
+        button {
+          margin-top: 240px;
+        }
+      </style>
+    </head>
+    <body></p><br><br>
+      <div id="cont">
+        <div id="big" style="width: 250px;">
+          <div id="small" style="width: 25px;"></div><br>
+          <button onclick="move()">Move</button>
+        </div>
+        <div id="bigg" style="width: 250px;">
+          <div id="ssmall" style="width: 25px;"></div><br>
+          <button onclick="movee(this)">Move</button>
+          <button onclick="reset()">Reset</button>
+        </div>
+      </div><br><br>
+      <p id="show">
+      <p id="show2">
+      <p id="show3">
+      <p id="show4">
+      <script>
+        // The first animation
+        let position = 0;
+        let forwardInterval;
+        let backwardInterval;
+        let isRunning = false;
+        let direction = true;
+        show.innerHTML = `Position: <b>${position}</b>`;
+        show2.innerHTML = `isRunning status: <b>${isRunning}</b>`;
+        let big = document.getElementById('big');
+        let small = document.getElementById('small');
+        let width = parseInt(big.style.width) - parseInt(small.style.width);
+        let buttonn = document.getElementsByTagName('button')[1];
+        function move() {
+          if (isRunning === true) {return false;}
+          isRunning = true;
+          issRunning = false;
+          buttonn.setAttribute('onclick', 'movee(this)');
+          buttonn.innerHTML = 'Move';
+          makeReset(ssmall, pposition);
+          clearInterval(fforwardInterval);
+          clearInterval(bbackwardInterval);
+          forwardInterval = setInterval(mooveForward, 10);
+        }
+        function mooveForward() {
+          if (position === width) {
+            clearInterval(forwardInterval);
+            show2.innerHTML = `isRunning status: <b>${isRunning}</b>`;
+            backwardInterval = setInterval(moveBackwards, 10);
+          } else {
+            position++;
+            updateBox(small, position);
+            show.innerHTML = `Position: <b>${position}</b>`;
+            show2.innerHTML = `isRunning status: <b>${isRunning}</b>`;
+            direction = true;
+            show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+          }
+        }
+        function moveBackwards() {
+          if (position === 0) {
+            clearInterval(backwardInterval);
+            isRunning = false;
+            show2.innerHTML = `isRunning status: <b>${isRunning}</b>`;
+            direction = true;
+            show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+          } else {
+            position--;
+            updateBox(small, position);
+            show.innerHTML = `Position: <b>${position}</b>`;
+            show2.innerHTML = `isRunning status: <b>${isRunning}</b>`;
+            direction = false;
+            show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+          }
+        }
+        // The second animation
+        let pposition = 0;
+        let fforwardInterval;
+        let bbackwardInterval;
+        let issRunning = false;
+        direction = true;
+        show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+        show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+        let bigg = document.getElementById('bigg');
+        let ssmall = document.getElementById('ssmall');
+        let widthh = parseInt(bigg.style.width) - parseInt(ssmall.style.width);
+        function movee(button) {
+          if (direction === false) {
+            if (issRunning === true) {return false;}
+            issRunning = true;
+            makeReset(small, position);
+            clearInterval(forwardInterval);
+            clearInterval(backwardInterval);
+            bbackwardInterval = setInterval(mmoveBackwards, 10);
+          } else {
+            if (issRunning === true) {return false;}
+            issRunning = true;
+            makeReset(small, position);
+            clearInterval(forwardInterval);
+            clearInterval(backwardInterval);
+            fforwardInterval = setInterval(mmooveForward, 10);
+          }
+          button.setAttribute('onclick', 'sstop(this)');
+          button.innerHTML = 'Stop';
+        }
+        function mmooveForward() {
+          if (pposition === widthh) {
+            clearInterval(fforwardInterval);
+            show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+            bbackwardInterval = setInterval(mmoveBackwards, 10);
+          } else {
+            pposition++;
+            updateBox(ssmall, pposition);
+            show.innerHTML = `Position: <b>${pposition}</b>`;
+            show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+            direction = true;
+            show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+          }
+        }
+        function mmoveBackwards() {
+          if (pposition === 0) {
+            clearInterval(bbackwardInterval);
+            issRunning = false;
+            direction = true;
+            show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+            movee();
+          } else {
+            pposition--;
+            updateBox(ssmall, pposition);
+            show.innerHTML = `Position: <b>${pposition}</b>`;
+            show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+            direction = false;
+            show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+          }
+        }
+        // Other helper functions
+        function sstop(button) {
+          clearInterval(fforwardInterval);
+          clearInterval(bbackwardInterval);
+          issRunning = false;
+          show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+          button.setAttribute('onclick', 'movee(this)');
+          button.innerHTML = 'Move';
+        }
+        function reset() {
+          if (issRunning === true) {return false;}
+          pposition = 0;
+          isRunning = false;
+          issRunning = false;
+          ssmall.style.top = pposition + 'px';
+          ssmall.style.left = pposition + 'px';
+          show.innerHTML = `Position: <b>${pposition}</b>`;
+          show2.innerHTML = `isRunning status: <b>${isRunning}</b>`;
+          show3.innerHTML = `issRunning status: <b>${issRunning}</b>`;
+          direction = true;
+          show4.innerHTML = (direction === false) ? `Direction: <b>backwards</b>`: `Direction: <b>forward</b>`;
+        }
+        function makeReset(elmt, pos) {
+          pos = 0;
+          elmt.style.top = pos + 'px';
+          elmt.style.left = pos + 'px';
+        }
+        function updateBox(elmt, pos) {
+          elmt.style.top = pos + 'px';
+          elmt.style.left = pos + 'px';
+        }
+      </script>
+    </body>
+  </html>
