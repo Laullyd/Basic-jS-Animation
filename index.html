@@ -1,9 +1,12 @@
 <!DOCTYPE html>
   <html>
     <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
         #cont {
           display: flex;
+          justify-content: center;
+          gap: 50px;
         }
         #big, #bigg {
           position: relative;
@@ -14,7 +17,6 @@
           background-color: black;
         }
         #bigg {
-          margin-left: 100px;
           background-color: skyblue;
         }
         #small, #ssmall {
@@ -33,6 +35,19 @@
         button {
           margin-top: 240px;
         }
+        #paras-cont {
+          width: 32.5%;
+          margin: auto;
+        }
+        @media screen and (max-width: 768px) {
+          #cont {
+            flex-direction: column;
+          }
+          #paras-cont {
+            width: 100%;
+          }
+          
+        }
       </style>
     </head>
     <body></p><br><br>
@@ -47,10 +62,12 @@
           <button onclick="reset()">Reset</button>
         </div>
       </div><br><br>
-      <p id="show">
-      <p id="show2">
-      <p id="show3">
-      <p id="show4">
+      <div id="paras-cont">
+        <p id="show">
+        <p id="show2">
+        <p id="show3">
+        <p id="show4">
+      </div>
       <script>
         // The first animation
         let position = 0;
